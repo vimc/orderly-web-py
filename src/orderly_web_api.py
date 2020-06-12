@@ -13,14 +13,14 @@ class OrderlyWebAPI:
             raise Exception(msg.format(response.status_code))
         self.token = response.json()['access_token']
 
-    def run_report(self):
-        # TODO
-        return self.get('diseases')
+    def run_report(self, report, params):
+        result = self.post('reports/{}/run'.format(report), params)
+        return result['key']
 
-    def get(self, route):
+    def post(self, route, data):
         headers = {'Authorization': 'Bearer {}'.format(self.token)}
         url = self.build_url(route)
-        response = requests.get(url, headers=headers)
+        response = requests.post(url, data=data, headers=headers)
         if response.status_code != 200:
             msg = 'Unexpected status code: {}'
             raise Exception(msg.format(response.status_code))

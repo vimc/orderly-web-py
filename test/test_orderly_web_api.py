@@ -3,7 +3,7 @@ import pytest
 import requests
 
 
-def getMontaguToken():
+def get_montagu_token():
     url = 'http://localhost:8080/v1/authenticate/'
     data = 'grant_type=client_credentials'
     auth = ('test.user@example.com', 'password')
@@ -17,7 +17,7 @@ def getMontaguToken():
 
 
 base_url = 'http://localhost:8888'
-montagu_token = getMontaguToken()
+montagu_token = get_montagu_token()
 
 
 def test_init():
@@ -25,26 +25,23 @@ def test_init():
     assert len(api.token) > 0
 
 
-#def test_error_on_incorrect_credentials():
-#    with pytest.raises(Exception) as ex:
-#        MontaguAPI(base_url, user, 'wrong password')
-#    assert 'Exception: Unexpected status code: 401. Unable to authenticate.' \
-#           in str(ex)
+def test_error_on_incorrect_credentials():
+    with pytest.raises(Exception) as ex:
+        OrderlyWebAPI(base_url, 'bad token')
+    assert 'Exception: Unexpected status code: 401. Unable to authenticate.' \
+           in str(ex)
 
 
-#def test_diseases():
-#    api = MontaguAPI(base_url, user, password)
-#    diseases = api.diseases()
-#    assert len(diseases) == 1
-#    disease = diseases[0]
-#    assert disease['id'] == 'YF'
-#    assert disease['name'] == 'Yellow Fever'
+def test_run_report():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    key = api.run_report('minimal', '{}')
+    assert len(key) > 0
 
 
-#def test_error_on_get():
-#    api = MontaguAPI(base_url, user, password)
-#    with pytest.raises(Exception) as ex:
-#        api.get("nonexistent-path")
-#    assert 'Exception: Unexpected status code: 404' in str(ex)
+def test_error_on_post():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    with pytest.raises(Exception) as ex:
+        api.post("nonexistent-path", '')
+    assert 'Exception: Unexpected status code: 404' in str(ex)
 
 
