@@ -28,7 +28,7 @@ def test_init():
 def test_error_on_incorrect_credentials():
     with pytest.raises(Exception) as ex:
         OrderlyWebAPI(base_url, 'bad token')
-    assert 'Exception: Unexpected status code: 401. Unable to authenticate.' \
+    assert 'Unexpected status code: 401. Unable to authenticate' \
            in str(ex)
 
 
@@ -42,6 +42,6 @@ def test_error_on_post():
     api = OrderlyWebAPI(base_url, montagu_token)
     with pytest.raises(Exception) as ex:
         api.post("nonexistent-path", '')
-    assert 'Exception: Unexpected status code: 404' in str(ex)
+    assert 'Unexpected status code: 404' in str(ex)
 
 

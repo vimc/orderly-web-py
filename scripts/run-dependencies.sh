@@ -29,7 +29,7 @@ $here/montagu_cli.sh add "Test User" test.user \
 
 $here/montagu_cli.sh addRole test.user user
 
-# Always generate report test database
+# generate report test database
 rm demo -rf
 rm git -rf
 orderly_data_image=${REGISTRY}/orderly:master
@@ -52,7 +52,7 @@ docker run --rm --network=${NETWORK} \
   -v montagu_orderly_volume:/orderly \
   $ow_migrate_image
 
-# Add user to orderly_web
+# Add user to orderlyweb
 $here/orderlyweb_cli.sh add-users test.user@example.com
 $here/orderlyweb_cli.sh grant test.user@example.com */reports.run
 
@@ -64,5 +64,5 @@ docker exec montagu_orderly_1 touch /orderly_go/go_signal
 docker exec montagu_orderly_web_1 mkdir -p /etc/orderly/web
 docker cp $here/config.properties montagu_orderly_web_1:/etc/orderly/web
 
-# start orderly web
+# start orderlyweb
 docker exec montagu_orderly_web_1 touch /etc/orderly/web/go_signal
