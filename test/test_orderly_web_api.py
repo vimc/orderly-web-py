@@ -34,7 +34,7 @@ def test_error_on_incorrect_credentials():
 
 def test_run_report():
     api = OrderlyWebAPI(base_url, montagu_token)
-    key = api.run_report('minimal', '{}')
+    key = api.run_report('minimal', {})
     assert len(key) > 0
 
 
@@ -43,5 +43,4 @@ def test_error_on_post():
     with pytest.raises(Exception) as ex:
         api.post("nonexistent-path", '')
     assert 'Unexpected status code: 404' in str(ex)
-
 

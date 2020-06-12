@@ -1,7 +1,7 @@
 # orderly-web-py
 
 [![Build Status](https://travis-ci.com/vimc/orderly-web-py.svg?branch=master)](https://travis-ci.com/vimc/orderly-web-py)
-[![codecov.io](https://codecov.io/github/vimcorderly-web-py/coverage.svg?branch=master)](https://codecov.io/github/vimc/orderly-web-py?branch=master)
+[![codecov.io](https://codecov.io/github/vimc/orderly-web-py/coverage.svg?branch=master)](https://codecov.io/github/vimc/orderly-web-py?branch=master)
 
 Python client for [OrderlyWeb](https://github.com/vimc/orderly-web). 
 
@@ -19,10 +19,11 @@ The bearer token must be obtained externally to this client. Use the
 authenticating with Montagu. 
 
 To run a report:
-###TODO: clarify this!
 ```
 api.run_report(report_name, report_paraneters)
 ```
+where report_parameters is a dictionary or JSON string.
+
 
 ## Development
 

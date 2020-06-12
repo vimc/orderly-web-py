@@ -14,7 +14,7 @@ class OrderlyWebAPI:
         self.token = response.json()['access_token']
 
     def run_report(self, report, params):
-        result = self.post('reports/{}/run'.format(report), params)
+        result = self.post('reports/{}/run'.format(report), str(params))
         return result['key']
 
     def post(self, route, data):
