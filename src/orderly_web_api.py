@@ -11,6 +11,7 @@ class OrderlyWebAPI:
         if response.status_code != 200:
             msg = 'Unexpected status code: {}. Unable to authenticate.'
             raise Exception(msg.format(response.status_code))
+        self.token = response.json()['access_token']
 
     def run_report(self):
         # TODO
