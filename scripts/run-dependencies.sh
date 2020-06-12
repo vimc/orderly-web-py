@@ -60,6 +60,9 @@ $here/orderlyweb_cli.sh grant test.user@example.com */reports.run
 docker exec montagu_orderly_1 mkdir -p /orderly_go
 docker exec montagu_orderly_1 touch /orderly_go/go_signal
 
-# start orderly web
+# Copy orderlyweb config properties
 docker exec montagu_orderly_web_1 mkdir -p /etc/orderly/web
+docker cp $here/config.properties montagu_orderly_web_1:/etc/orderly/web
+
+# start orderly web
 docker exec montagu_orderly_web_1 touch /etc/orderly/web/go_signal
