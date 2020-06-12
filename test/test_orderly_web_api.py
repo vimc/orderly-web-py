@@ -43,4 +43,3 @@ def test_error_on_post():
     with pytest.raises(Exception) as ex:
         api.post("nonexistent-path", '')
     assert 'Unexpected status code: 404' in str(ex)
-
