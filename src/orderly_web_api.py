@@ -5,7 +5,6 @@ class OrderlyWebAPI:
     def __init__(self, base_url, token):
         self.base_url = base_url
         auth_url = self.build_url('login')
-        # data = 'grant_type=client_credentials'
         headers = {'Authorization': 'token {}'.format(token)}
         response = requests.post(auth_url, headers=headers)
         if response.status_code != 200:
