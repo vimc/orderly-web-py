@@ -18,7 +18,7 @@ docker exec montagu_db_1 montagu-wait.sh
 # migrate the database
 migrate_image=${REGISTRY}/montagu-migrate:master
 docker pull $migrate_image
-docker run --network=montagu_default $migrate_image
+docker run --rm --network=montagu_default $migrate_image
 
 # add test user
 here=$(dirname $0)
