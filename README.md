@@ -50,7 +50,7 @@ must be added to `orderlyweb_api/__init__.py`.
 Remember to increment `version` in `setup.py` before publishing a new build.
 
 To publish:
-1. Delete the following folders: `.eggs`, `build`, `dist`, `orderlyweb-api.egg-info`. 
+1. Delete the following folders: `.eggs`, `build`, `dist`, `orderlyweb_api.egg-info`. 
 1. Build the package with: `python3 setup.py sdist bdist_wheel`
 1. Publish with: `python3 -m twine upload dist/*`
 

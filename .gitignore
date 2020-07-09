@@ -3,7 +3,7 @@
 .cache
 build
 dist
-orderly-web.egg-info
+orderlyweb_api.egg-info
 .cache
 /*/__pycache__/
 /test/*/__pycache__/
