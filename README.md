@@ -1,4 +1,4 @@
-# orderly-web-py
+# orderlyweb-api
 
 [![Build Status](https://travis-ci.com/vimc/orderly-web-py.svg?branch=master)](https://travis-ci.com/vimc/orderly-web-py)
 [![codecov.io](https://codecov.io/github/vimc/orderly-web-py/coverage.svg?branch=master)](https://codecov.io/github/vimc/orderly-web-py?branch=master)
