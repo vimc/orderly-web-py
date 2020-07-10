@@ -16,7 +16,7 @@ install:
 script:
   - pip3 install -r requirements.txt
   - ./scripts/run-dependencies.sh
-  - pytest --cov=src
+  - pytest --cov=orderlyweb_api
   - pycodestyle .
 
 after_script:

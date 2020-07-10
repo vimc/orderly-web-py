@@ -1,4 +1,4 @@
-from src.orderly_web_api import OrderlyWebAPI
+from orderlyweb_api.orderly_web_api import OrderlyWebAPI
 import pytest
 import requests
 

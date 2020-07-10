@@ -1,4 +1,9 @@
+.eggs
 .idea
+.cache
+build
+dist
+orderlyweb_api.egg-info
 .cache
 /*/__pycache__/
 /test/*/__pycache__/
