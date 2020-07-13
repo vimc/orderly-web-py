@@ -3,4 +3,3 @@ class OrderlyWebResponseError(Exception):
         response = kwargs.pop('response', None)
         self.response = response
         super(Exception, self).__init__(*args, **kwargs)
-
