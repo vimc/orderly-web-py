@@ -1,6 +1,8 @@
 from orderlyweb_api.orderly_web_api import OrderlyWebAPI
 import pytest
 import requests
+import time
+from datetime import datetime, timedelta
 
 
 def get_montagu_token():
@@ -43,3 +45,32 @@ def test_error_on_post():
     with pytest.raises(Exception) as ex:
         api.post("nonexistent-path", '')
     assert 'Unexpected status code: 404' in str(ex)
+
+
+def test_report_status():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    key = api.run_report('minimal', {})
+    result = api.report_status(key)
+    assert result.status == "queued"
+    assert result.version is None
+    assert len(result.output["stderr"]) == 0
+    assert len(result.output["stdout"]) > 0
+    assert not result.success
+    assert not result.fail
+    assert not result.finished
+
+
+def test_run_report_to_completion():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    key = api.run_report('minimal', {})
+    finished = False
+    timeout = datetime.now() + timedelta(minutes=1)
+    while not finished and datetime.now() < timeout:
+        time.sleep(0.5)
+        result = api.report_status(key)
+        finished = result.finished
+    assert result.finished
+    assert result.success
+    assert not result.fail
+    assert len(result.version) > 0
+    assert result.output is None

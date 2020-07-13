@@ -1,3 +1,4 @@
+from orderlyweb_api.report_status_result import ReportStatusResult
 import requests
 
 
@@ -16,14 +17,30 @@ class OrderlyWebAPI:
         result = self.post('reports/{}/run'.format(report), str(params))
         return result['key']
 
+    def report_status(self, key):
+        data = self.get('/reports/{}/status'.format(key))
+        return ReportStatusResult(data)
+
     def post(self, route, data):
-        headers = {'Authorization': 'Bearer {}'.format(self.token)}
+        headers = self.headers()
         url = self.build_url(route)
         response = requests.post(url, data=data, headers=headers)
+        return self.handle_response(response)
+
+    def get(self, route):
+        headers = self.headers()
+        url = self.build_url(route)
+        response = requests.get(url, headers=headers)
+        return self.handle_response(response)
+
+    def headers(self):
+        return {'Authorization': 'Bearer {}'.format(self.token)}
+
+    def build_url(self, route):
+        return '{}/api/v1/{}/'.format(self.base_url, route)
+
+    def handle_response(self, response):
         if response.status_code != 200:
             msg = 'Unexpected status code: {}'
             raise Exception(msg.format(response.status_code))
         return response.json()['data']
-
-    def build_url(self, route):
-        return '{}/api/v1/{}/'.format(self.base_url, route)
