@@ -18,7 +18,7 @@ class OrderlyWebAPI:
         return result['key']
 
     def report_status(self, key):
-        data = self.get('/reports/{}/status'.format(key))
+        data = self.get('reports/{}/status'.format(key))
         return ReportStatusResult(data)
 
     def post(self, route, data):
