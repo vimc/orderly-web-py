@@ -69,6 +69,7 @@ def test_run_report_to_completion():
         time.sleep(0.5)
         result = api.report_status(key)
         finished = result.finished
+    assert result.status == "success"
     assert result.finished
     assert result.success
     assert not result.fail
