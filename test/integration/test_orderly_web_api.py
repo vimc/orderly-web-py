@@ -1,4 +1,5 @@
 from orderlyweb_api.orderly_web_api import OrderlyWebAPI
+from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import pytest
 import requests
 import time
@@ -28,7 +29,7 @@ def test_init():
 
 
 def test_error_on_incorrect_credentials():
-    with pytest.raises(Exception) as ex:
+    with pytest.raises(OrderlyWebResponseError) as ex:
         OrderlyWebAPI(base_url, 'bad token')
     assert 'Unexpected status code: 401. Unable to authenticate' \
            in str(ex)
@@ -42,7 +43,7 @@ def test_run_report():
 
 def test_error_on_post():
     api = OrderlyWebAPI(base_url, montagu_token)
-    with pytest.raises(Exception) as ex:
+    with pytest.raises(OrderlyWebResponseError) as ex:
         api.post("nonexistent-path", '')
     assert 'Unexpected status code: 404' in str(ex)
 

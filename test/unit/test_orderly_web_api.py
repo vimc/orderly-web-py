@@ -1,4 +1,5 @@
 from orderlyweb_api.orderly_web_api import OrderlyWebAPI
+from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import requests_mock
 import pytest
 
@@ -22,10 +23,11 @@ def test_init_error():
     with requests_mock.mock() as m:
         m.post("{}login/".format(api_base_url), status_code=500)
 
-        with pytest.raises(Exception) as ex:
+        with pytest.raises(OrderlyWebResponseError) as ex:
             OrderlyWebAPI(base_url, "fake_montagu_token")
         assert 'Unexpected status code: 500. Unable to authenticate' \
                in str(ex)
+        assert ex.value.response.status_code == 500
 
 
 def test_run_report():
@@ -48,9 +50,10 @@ def test_run_report_error():
     with requests_mock.mock() as m:
         m.post("{}reports/test-report/run/".format(api_base_url),
                status_code=403)
-        with pytest.raises(Exception) as ex:
+        with pytest.raises(OrderlyWebResponseError) as ex:
             api.run_report("test-report", params)
         assert 'Unexpected status code: 403' in str(ex)
+        assert ex.value.response.status_code == 403
 
 
 def test_report_status():
@@ -71,9 +74,10 @@ def test_report_status_error():
     with requests_mock.mock() as m:
         m.get("{}reports/test-key/status/".format(api_base_url),
               status_code=500)
-        with pytest.raises(Exception) as ex:
+        with pytest.raises(OrderlyWebResponseError) as ex:
             api.report_status("test-key")
         assert 'Unexpected status code: 500' in str(ex)
+        assert ex.value.response.status_code == 500
 
 
 def get_test_api():

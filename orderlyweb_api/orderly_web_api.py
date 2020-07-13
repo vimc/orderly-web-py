@@ -1,4 +1,5 @@
 from orderlyweb_api.report_status_result import ReportStatusResult
+from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import requests
 
 
@@ -10,7 +11,8 @@ class OrderlyWebAPI:
         response = requests.post(auth_url, headers=headers)
         if response.status_code != 200:
             msg = 'Unexpected status code: {}. Unable to authenticate.'
-            raise Exception(msg.format(response.status_code))
+            raise OrderlyWebResponseError(msg.format(response.status_code),
+                                          response=response)
         self.token = response.json()['access_token']
 
     def run_report(self, report, params):
@@ -39,8 +41,10 @@ class OrderlyWebAPI:
     def build_url(self, route):
         return '{}/api/v1/{}/'.format(self.base_url, route)
 
-    def handle_response(self, response):
+    @staticmethod
+    def handle_response(response):
         if response.status_code != 200:
             msg = 'Unexpected status code: {}'
-            raise Exception(msg.format(response.status_code))
+            raise OrderlyWebResponseError(msg.format(response.status_code),
+                                          response=response)
         return response.json()['data']
