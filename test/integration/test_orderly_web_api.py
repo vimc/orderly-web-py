@@ -25,14 +25,14 @@ montagu_token = get_montagu_token()
 
 def test_init():
     api = OrderlyWebAPI(base_url, montagu_token)
-    assert len(api.token) > 0
+    assert len(api.access_token) > 0
 
 
 def test_error_on_incorrect_credentials():
     with pytest.raises(OrderlyWebResponseError) as ex:
         OrderlyWebAPI(base_url, 'bad token')
-    assert 'Unexpected status code: 401. Unable to authenticate' \
-           in str(ex)
+    assert str(ex.value) == 'Montagu token not supplied in Authorization ' \
+                            'header, or Montagu token was invalid'
 
 
 def test_run_report():
@@ -45,7 +45,7 @@ def test_error_on_post():
     api = OrderlyWebAPI(base_url, montagu_token)
     with pytest.raises(OrderlyWebResponseError) as ex:
         api.post("nonexistent-path", '')
-    assert 'Unexpected status code: 404' in str(ex)
+    assert str(ex.value) == 'Requested resource not found.'
 
 
 def test_report_status():
