@@ -4,6 +4,8 @@ set -ex
 export REGISTRY=vimc
 export NETWORK=montagu_default
 
+here=$(dirname $0)
+
 # Run the API and database
 docker-compose pull
 docker-compose --project-name montagu up -d
@@ -25,8 +27,6 @@ docker pull $migrate_image
 docker run --rm --network=montagu_default $migrate_image
 
 # add test user
-here=$(dirname $0)
-
 $here/montagu_cli.sh add "Test User" test.user \
     test.user@example.com password \
     --if-not-exists
