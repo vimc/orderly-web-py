@@ -4,10 +4,10 @@ import requests
 
 
 class OrderlyWebAPI:
-    def __init__(self, base_url, auth_token):
+    def __init__(self, base_url, auth_provider_token):
         self.base_url = base_url
         auth_url = self.build_url('login')
-        headers = {'Authorization': 'token {}'.format(auth_token)}
+        headers = {'Authorization': 'token {}'.format(auth_provider_token)}
         response = requests.post(auth_url, headers=headers)
         if response.status_code != 200:
             raise OrderlyWebResponseError(response)
