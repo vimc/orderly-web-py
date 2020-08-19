@@ -1,4 +1,5 @@
-from orderlyweb_api.report_status_result import ReportStatusResult
+from orderlyweb_api.result_models import ReportStatusResult, VersionDetails
+
 from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import requests
 
@@ -29,7 +30,8 @@ class OrderlyWebAPI:
         return self.get('reports/{}'.format(name))
 
     def version_details(self, name, version):
-        return self.get('reports/{}/versions/{}'.format(name, version))
+        data = self.get('reports/{}/versions/{}'.format(name, version))
+        return VersionDetails(data)
 
     def post(self, route, data):
         headers = self.headers()

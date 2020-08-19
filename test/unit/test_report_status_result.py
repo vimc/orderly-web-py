@@ -1,4 +1,4 @@
-from orderlyweb_api.report_status_result import ReportStatusResult
+from orderlyweb_api.result_models import ReportStatusResult
 
 test_result_success = ReportStatusResult({"status": "success",
                                           "version": "test-version",
