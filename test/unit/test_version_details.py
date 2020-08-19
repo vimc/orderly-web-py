@@ -31,7 +31,7 @@ def test_version_details():
     assert test_result.name == 'minimal'
     assert test_result.description == 'desc'
     assert test_result.display_name == 'display'
-    assert test_result.published == False
+    assert test_result.published is False
     assert test_result.date == '2018-10-11T10:57:02Z'
     assert test_result.artefacts == [
         {
