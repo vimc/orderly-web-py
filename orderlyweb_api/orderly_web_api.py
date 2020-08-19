@@ -17,9 +17,19 @@ class OrderlyWebAPI:
         result = self.post('reports/{}/run'.format(report), str(params))
         return result['key']
 
+    def publish_report(self, name, version):
+        url = 'reports/{}/versions/{}/publish'.format(name, version)
+        return self.post(url, None)
+
     def report_status(self, key):
         data = self.get('reports/{}/status'.format(key))
         return ReportStatusResult(data)
+
+    def report_versions(self, name):
+        return self.get('reports/{}'.format(name))
+
+    def version_details(self, name, version):
+        return self.get('reports/{}/versions/{}'.format(name, version))
 
     def post(self, route, data):
         headers = self.headers()

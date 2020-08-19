@@ -41,6 +41,15 @@ def test_run_report():
     assert len(key) > 0
 
 
+def test_publish_report():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    version = api.report_versions('minimal')[0]
+    version_details = api.version_details('minimal', version)
+    result = api.publish_report('minimal', version)
+    expected_result = not version_details['published']
+    assert result == expected_result
+
+
 def test_error_on_post():
     api = OrderlyWebAPI(base_url, montagu_token)
     with pytest.raises(OrderlyWebResponseError) as ex:
