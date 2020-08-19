@@ -1,4 +1,5 @@
-from orderlyweb_api.report_status_result import ReportStatusResult
+from orderlyweb_api.result_models import ReportStatusResult, VersionDetails
+
 from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import requests
 
@@ -17,9 +18,20 @@ class OrderlyWebAPI:
         result = self.post('reports/{}/run'.format(report), str(params))
         return result['key']
 
+    def publish_report(self, name, version):
+        url = 'reports/{}/versions/{}/publish'.format(name, version)
+        return self.post(url, None)
+
     def report_status(self, key):
         data = self.get('reports/{}/status'.format(key))
         return ReportStatusResult(data)
+
+    def report_versions(self, name):
+        return self.get('reports/{}'.format(name))
+
+    def version_details(self, name, version):
+        data = self.get('reports/{}/versions/{}'.format(name, version))
+        return VersionDetails(data)
 
     def post(self, route, data):
         headers = self.headers()
