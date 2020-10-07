@@ -4,8 +4,8 @@ class ReportStatusResult:
         self.version = response_data["version"]
         self.output = response_data["output"]
         self.success = self.status == "success"
-        self.fail = "error" in self.status.lower()
-        self.finished = self.success or self.fail
+        self.finished = self.status.lower() not in ["running", "queued"]
+        self.fail = self.finished and not self.success
 
 
 class VersionDetails:
