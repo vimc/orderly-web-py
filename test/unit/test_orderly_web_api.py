@@ -37,10 +37,10 @@ def test_run_report():
     params = {"p1": "v1", "p2": 2}
     api = get_test_api()
     with requests_mock.mock() as m:
-        m.post("{}reports/test-report/run/".format(api_base_url),
+        m.post("{}reports/test-report/run/?timeout=480".format(api_base_url),
                text='{"data": {"key": "test-key"}}')
 
-        key = api.run_report("test-report", params)
+        key = api.run_report("test-report", params, 480)
         assert key == "test-key"
 
         request = m.request_history[0]
@@ -51,7 +51,7 @@ def test_run_report_error():
     params = {}
     api = get_test_api()
     with requests_mock.mock() as m:
-        m.post("{}reports/test-report/run/".format(api_base_url),
+        m.post("{}reports/test-report/run/?timeout=600".format(api_base_url),
                status_code=403, text=error_response_text)
         with pytest.raises(OrderlyWebResponseError) as ex:
             api.run_report("test-report", params)

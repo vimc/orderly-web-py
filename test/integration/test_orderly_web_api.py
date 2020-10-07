@@ -37,7 +37,7 @@ def test_error_on_incorrect_credentials():
 
 def test_run_report():
     api = OrderlyWebAPI(base_url, montagu_token)
-    key = api.run_report('minimal', {})
+    key = api.run_report('minimal', {}, 500)
     assert len(key) > 0
 
 
@@ -73,7 +73,7 @@ def test_error_on_post():
 
 def test_report_status():
     api = OrderlyWebAPI(base_url, montagu_token)
-    key = api.run_report('minimal', {})
+    key = api.run_report('minimal', {}, 500)
     result = api.report_status(key)
     assert result.status == "queued"
     assert result.version is None
@@ -86,7 +86,7 @@ def test_report_status():
 
 def test_run_report_to_completion():
     api = OrderlyWebAPI(base_url, montagu_token)
-    key = api.run_report('minimal', {})
+    key = api.run_report('minimal', {}, 500)
     finished = False
     timeout = datetime.now() + timedelta(minutes=1)
     while not finished and datetime.now() < timeout:
