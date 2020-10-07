@@ -8,7 +8,7 @@ requirements = [
     "pytest"]
 
 setup(name="orderlyweb-api",
-      version="0.0.7",
+      version="0.0.8",
       description="Python client for OrderlyWeb API",
       long_description=long_description,
       classifiers=[
