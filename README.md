@@ -20,9 +20,11 @@ authenticating with Montagu.
 
 To run a report:
 ```
-api.run_report(report_name, report_paraneters)
+api.run_report(report_name, report_paraneters, timeout)
 ```
-where report_parameters is a dictionary or JSON string.
+where `report_parameters` is a dictionary or JSON string, and `timeout` is an 
+integer. `Timeout` sets a timeout for the report run in seconds, after which the 
+run will be halted. The default timeout is 600.
 
 
 ## Development
