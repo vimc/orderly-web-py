@@ -84,6 +84,14 @@ def test_report_status():
     assert not result.finished
 
 
+def test_kill_report():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    key = api.run_report('minimal', {}, 500)
+    api.kill_report(key)
+    result = api.report_status(key)
+    assert result.status == "killed"
+
+
 def test_run_report_to_completion():
     api = OrderlyWebAPI(base_url, montagu_token)
     key = api.run_report('minimal', {}, 500)
