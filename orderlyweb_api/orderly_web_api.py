@@ -27,6 +27,9 @@ class OrderlyWebAPI:
         data = self.get('reports/{}/status/'.format(key))
         return ReportStatusResult(data)
 
+    def kill_report(self, key):
+        self.delete('reports/{}/kill/'.format(key))
+
     def report_versions(self, name):
         return self.get('reports/{}'.format(name))
 
@@ -45,6 +48,16 @@ class OrderlyWebAPI:
         url = self.build_url(route)
         response = requests.get(url, headers=headers)
         return self.handle_response(response)
+
+    def delete(self, route):
+        headers = self.headers
+        url = self.build_url(route)
+        response = requests.delete(url, headers=headers)
+        if response.status_code != 200 and response.status_code != 400:
+            raise OrderlyWebResponseError(response)
+        # TODO: we should handle_response to raise error if result is not 200 -
+        # but do that after issue in orderly-server which returns 400 from a
+        # successful kill
 
     def headers(self):
         return {'Authorization': 'Bearer {}'.format(self.access_token)}
