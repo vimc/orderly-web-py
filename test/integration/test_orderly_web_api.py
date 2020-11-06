@@ -38,7 +38,6 @@ def test_error_on_incorrect_credentials():
 def test_kill_report():
     api = OrderlyWebAPI(base_url, montagu_token)
     key = api.run_report('minimal', {}, 500)
-    time.sleep(2.4)
     api.kill_report(key)
     result = api.report_status(key)
     assert result.status == "killed"

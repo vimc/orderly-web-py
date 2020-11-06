@@ -75,7 +75,7 @@ def test_report_status():
 def test_kill_report():
     api = get_test_api()
     with requests_mock.mock() as m:
-        url = "{}reports/test-key/delete/".format(api_base_url)
+        url = "{}reports/test-key/kill/".format(api_base_url)
         m.delete(url, text="")
         api.kill_report("test-key")
         assert m.request_history[0].method == 'DELETE'
