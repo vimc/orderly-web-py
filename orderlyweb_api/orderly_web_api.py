@@ -50,7 +50,7 @@ class OrderlyWebAPI:
         return self.handle_response(response)
 
     def delete(self, route):
-        headers = self.headers
+        headers = self.headers()
         url = self.build_url(route)
         response = requests.delete(url, headers=headers)
         if response.status_code != 200 and response.status_code != 400:

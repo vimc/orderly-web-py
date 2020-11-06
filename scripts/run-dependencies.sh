@@ -12,7 +12,7 @@ docker-compose --project-name montagu up -d
 
 # Install orderly-web
 pip3 install orderly-web
-orderly-web start $here
+orderly-web start $here --pull
 
 # Start the APIs
 docker exec montagu_api_1 mkdir -p /etc/montagu/api/
