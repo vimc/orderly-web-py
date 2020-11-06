@@ -93,6 +93,17 @@ def test_report_status_error():
         assert ex.value.response.status_code == 500
 
 
+def test_kill_report_error():
+    api = get_test_api()
+    with requests_mock.mock() as m:
+        url = "{}reports/test-key/kill/".format(api_base_url)
+        m.delete(url,  status_code=500, text=error_response_text)
+        with pytest.raises(OrderlyWebResponseError) as ex:
+            api.kill_report("test-key")
+        assert str(ex.value) == "test-err-msg"
+        assert ex.value.response.status_code == 500
+
+
 def get_test_api():
     with requests_mock.mock() as m:
         m.post("{}login/".format(api_base_url),
