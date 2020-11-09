@@ -72,6 +72,16 @@ def test_report_status():
         assert result.output == {}
 
 
+def test_kill_report():
+    api = get_test_api()
+    with requests_mock.mock() as m:
+        url = "{}reports/test-key/kill/".format(api_base_url)
+        m.delete(url, text="")
+        api.kill_report("test-key")
+        assert m.request_history[0].method == 'DELETE'
+        assert m.request_history[0].url == url
+
+
 def test_report_status_error():
     api = get_test_api()
     with requests_mock.mock() as m:
@@ -79,6 +89,17 @@ def test_report_status_error():
               status_code=500, text=error_response_text)
         with pytest.raises(OrderlyWebResponseError) as ex:
             api.report_status("test-key")
+        assert str(ex.value) == "test-err-msg"
+        assert ex.value.response.status_code == 500
+
+
+def test_kill_report_error():
+    api = get_test_api()
+    with requests_mock.mock() as m:
+        url = "{}reports/test-key/kill/".format(api_base_url)
+        m.delete(url,  status_code=500, text=error_response_text)
+        with pytest.raises(OrderlyWebResponseError) as ex:
+            api.kill_report("test-key")
         assert str(ex.value) == "test-err-msg"
         assert ex.value.response.status_code == 500
 
