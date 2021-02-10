@@ -12,6 +12,7 @@ docker-compose --project-name montagu up -d
 
 # Install orderly-web
 pip3 install orderly-web
+pip install git+https://github.com/vimc/orderly-web-deploy@vimc-4558
 orderly-web start $here --pull
 
 # Start the APIs
