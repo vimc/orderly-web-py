@@ -18,3 +18,9 @@ jobs:
 
       - name: Run dependencies
         run: ./scripts/run-dependencies.sh
+
+      - name: Run tests
+        run: pytest --cov=orderlyweb_api
+
+      - name: Run codestyle
+        run: pycodestyle .
