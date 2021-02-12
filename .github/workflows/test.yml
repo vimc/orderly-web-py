@@ -1,0 +1,29 @@
+name: test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          pip3 install pytest-cov pycodestyle codecov
+          pip3 install -r requirements.txt
+
+      - name: Run dependencies
+        run: ./scripts/run-dependencies.sh
+
+      - name: Run tests
+        run: pytest --cov=orderlyweb_api
+
+      - name: Lint
+        run: pycodestyle .
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
