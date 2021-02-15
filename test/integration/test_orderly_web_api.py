@@ -40,7 +40,7 @@ def test_kill_report():
     key = api.run_report('minimal', {}, 500)
     api.kill_report(key)
     result = api.report_status(key)
-    assert result.status == "killed"
+    assert result.status == "interrupted"
 
 
 def test_run_report():
@@ -84,9 +84,7 @@ def test_report_status():
     key = api.run_report('minimal', {}, 500)
     result = api.report_status(key)
     assert result.status == "queued"
-    assert result.version is None
-    assert len(result.output["stderr"]) == 0
-    assert len(result.output["stdout"]) > 0
+    assert result.output is None
     assert not result.success
     assert not result.fail
     assert not result.finished
