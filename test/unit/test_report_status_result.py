@@ -2,7 +2,7 @@ from orderlyweb_api.result_models import ReportStatusResult
 
 test_result_success = ReportStatusResult({"status": "success",
                                           "version": "test-version",
-                                          "output": {"stdout": ["test-out"]}})
+                                          "output": ["test-out"]})
 
 test_result_running = ReportStatusResult({"status": "running",
                                           "version": None, "output": {}})
@@ -32,7 +32,7 @@ def test_version():
 
 
 def test_output():
-    assert test_result_success.output["stdout"] == ["test-out"]
+    assert test_result_success.output == ["test-out"]
 
 
 def test_success():
