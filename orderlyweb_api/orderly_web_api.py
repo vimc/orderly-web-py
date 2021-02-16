@@ -2,6 +2,7 @@ from orderlyweb_api.result_models import ReportStatusResult, VersionDetails
 
 from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 import requests
+import json
 
 
 class OrderlyWebAPI:
@@ -16,7 +17,7 @@ class OrderlyWebAPI:
 
     def run_report(self, report, params, timeout=600):
         url = 'reports/{}/run/?timeout={}'.format(report, timeout)
-        result = self.post(url, str(params))
+        result = self.post(url, json.dumps({'params': params}))
         return result['key']
 
     def publish_report(self, name, version):
