@@ -44,7 +44,7 @@ def test_run_report():
         assert key == "test-key"
 
         request = m.request_history[0]
-        assert request.body == "{'p1': 'v1', 'p2': 2}"
+        assert request.body == "{'params': {'p1': 'v1', 'p2': 2}}"
 
 
 def test_run_report_error():

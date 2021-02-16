@@ -105,3 +105,20 @@ def test_run_report_to_completion():
     assert not result.fail
     assert len(result.version) > 0
     assert result.output is None
+
+
+def test_run_report_with_params_to_completion():
+    api = OrderlyWebAPI(base_url, montagu_token)
+    key = api.run_report('other', {'nmin': 0}, 500)
+    finished = False
+    timeout = datetime.now() + timedelta(minutes=1)
+    while not finished and datetime.now() < timeout:
+        time.sleep(0.5)
+        result = api.report_status(key)
+        finished = result.finished
+    assert result.status == "success"
+    assert result.finished
+    assert result.success
+    assert not result.fail
+    assert len(result.version) > 0
+    assert result.output is None
