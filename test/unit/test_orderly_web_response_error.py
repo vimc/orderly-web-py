@@ -12,7 +12,7 @@ def test_init_with_error_message():
 
 def test_init_with_error_code():
     response = MockResponse({
-        "errors": [{"code": "test-code"}]
+        "errors": [{"error": "test-code"}]
     })
     sut = OrderlyWebResponseError(response)
     assert str(sut) == "test-code"
