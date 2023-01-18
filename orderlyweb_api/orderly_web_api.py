@@ -64,7 +64,7 @@ class OrderlyWebAPI:
         return {'Authorization': 'Bearer {}'.format(self.access_token)}
 
     def build_url(self, route):
-        return '{}/api/v1/{}'.format(self.base_url, route)
+        return '{}/api/v2/{}'.format(self.base_url, route)
 
     @staticmethod
     def handle_response(response):
