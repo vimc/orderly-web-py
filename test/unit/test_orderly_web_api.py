@@ -6,7 +6,7 @@ import pytest
 base_url = 'http://test'
 api_base_url = base_url + "/api/v2/"
 error_response_text = '{"errors": ' + \
-                      '[{"message": "test-err-msg"}]' + \
+                      '[{"detail": "test-err-msg"}]' + \
                       '}'
 
 
