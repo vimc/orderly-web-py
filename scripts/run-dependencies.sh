@@ -11,6 +11,7 @@ docker-compose pull
 docker-compose --project-name montagu up -d
 
 # Install orderly-web
+pip3 install constellation
 pip3 install orderly-web
 orderly-web start $here --pull
 

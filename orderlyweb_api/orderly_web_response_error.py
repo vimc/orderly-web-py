@@ -5,9 +5,9 @@ class OrderlyWebResponseError(Exception):
         msg = "An OrderlyWeb error occurred"
         if "errors" in json and len(json["errors"]) > 0:
             error = json["errors"][0]
-            if "message" in error:
-                msg = error["message"]
-            elif "code" in error:
-                msg = error["code"]
+            if "detail" in error:
+                msg = error["detail"]
+            elif "error" in error:
+                msg = error["error"]
 
         super(Exception, self).__init__(msg)

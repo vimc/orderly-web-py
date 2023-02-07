@@ -3,7 +3,7 @@ from orderlyweb_api.orderly_web_response_error import OrderlyWebResponseError
 
 def test_init_with_error_message():
     response = MockResponse({
-        "errors": [{"code": "test-code", "message": "test-msg"}]
+        "errors": [{"error": "test-code", "detail": "test-msg"}]
     })
     sut = OrderlyWebResponseError(response)
     assert str(sut) == "test-msg"
@@ -12,7 +12,7 @@ def test_init_with_error_message():
 
 def test_init_with_error_code():
     response = MockResponse({
-        "errors": [{"code": "test-code"}]
+        "errors": [{"error": "test-code"}]
     })
     sut = OrderlyWebResponseError(response)
     assert str(sut) == "test-code"
